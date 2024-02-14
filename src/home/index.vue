@@ -1,5 +1,4 @@
 <template>
-  <n-layout />
   <n-layout
     has-sider
     id="home"
@@ -18,7 +17,8 @@
       >
         <n-input v-model:value="bgimg" type="text" placeholder="壁纸链接" />
         <template #footer>
-          <n-button @click="resetBgimg">重置链接</n-button>
+          <n-button @click="startBgimg">默认壁纸</n-button
+          ><n-button @click="resetBgimg">随机二次元壁纸</n-button>
         </template>
       </n-card>
     </n-modal>
@@ -35,10 +35,10 @@
           <n-tab-pane name="signin" tab="登录">
             <n-form>
               <n-form-item-row label="用户名">
-                <n-input />
+                <n-input placeholder="你叫什么喵(^･ω･^=)~" />
               </n-form-item-row>
               <n-form-item-row label="密码">
-                <n-input />
+                <n-input placeholder="与我分享秘密喵~(=^–^)" />
               </n-form-item-row>
             </n-form>
             <n-button type="primary" block secondary strong> 登录 </n-button>
@@ -46,13 +46,13 @@
           <n-tab-pane name="signup" tab="注册">
             <n-form>
               <n-form-item-row label="用户名">
-                <n-input />
+                <n-input placeholder="你叫什么喵(^･ω･^=)~" />
               </n-form-item-row>
               <n-form-item-row label="密码">
-                <n-input />
+                <n-input placeholder="我会好好保管秘密喵(ะ`・ω・´ะ) " />
               </n-form-item-row>
               <n-form-item-row label="重复密码">
-                <n-input />
+                <n-input placeholder="这是真的喵~(=･ｪ･=?" />
               </n-form-item-row>
             </n-form>
             <n-button type="primary" block secondary strong> 注册 </n-button>
@@ -64,8 +64,8 @@
       class="menu"
       bordered
       collapse-mode="width"
-      :collapsed-width="64"
-      :width="240"
+      :collapsed-width="50"
+      :width="170"
       :collapsed="collapsed"
       show-trigger
       @collapse="collapsed = true"
@@ -73,7 +73,7 @@
     >
       <n-menu
         :collapsed="collapsed"
-        :collapsed-width="64"
+        :collapsed-width="50"
         :collapsed-icon-size="22"
         :options="menuOptions"
         key-field="whateverKey"
@@ -85,7 +85,7 @@
     <n-space vertical class="body">
       <n-flex justify="space-between" class="top">
         <p></p>
-        <n-gradient-text :size="34" type="info">
+        <n-gradient-text :size="34" type="success">
           <b style="text-stroke: 1px rgb(255, 255, 255)">
             <n-time format="HH:mm:ss" time-zone="Asia/Shanghai" />
           </b>
@@ -108,14 +108,23 @@
             </template>
           </n-input>
         </div>
-        <n-carousel autoplay>
+
+        <!-- <n-carousel autoplay>
           <n-card class="autocard" title="卡片1"> 卡片内容1 </n-card>
           <n-card class="autocard" title="卡片2"> 卡片内容2 </n-card>
           <n-card class="autocard" title="卡片3"> 卡片内容3 </n-card>
-        </n-carousel>
-        <n-card title="卡片"> 卡片内容 </n-card>
-        <n-card title="卡片"> 卡片内容 </n-card>
-        <n-card title="卡片"> 卡片内容 </n-card>
+        </n-carousel> -->
+        <n-card title="记录点什么吧">
+          <n-input
+            v-model:value="note"
+            type="textarea"
+            placeholder="记下美好的每一刻"
+            @input="savenote"
+            style="height: 40vh"
+          />
+        </n-card>
+        <!-- <n-card title="卡片"> 卡片内容 </n-card>
+        <n-card title="卡片"> 卡片内容 </n-card> -->
       </div>
     </n-space>
   </n-layout>
@@ -145,15 +154,26 @@ const github = "https://github.com/search?q=";
 const search_text = ref("");
 const search_engine = ref(bing);
 if (localStorage.getItem("bgimg") == null) {
-  localStorage.setItem("bgimg", "https://t.mwm.moe/pc/");
+  localStorage.setItem("bgimg", "start.WEBP");
 }
 const resetBgimg = () => {
   localStorage.setItem("bgimg", "https://t.mwm.moe/pc/");
   bgimg.value = localStorage.getItem("bgimg");
 };
+const startBgimg = () => {
+  localStorage.setItem("bgimg", "start.WEBP");
+  bgimg.value = localStorage.getItem("bgimg");
+};
 const bgimg = ref(localStorage.getItem("bgimg"));
 const bg = ref(false);
 const login = ref(false);
+const note = ref();
+if (localStorage.getItem("note") != null) {
+  note.value = localStorage.getItem("note");
+}
+const savenote = () => {
+  localStorage.setItem("note", note.value);
+};
 const search = () => {
   if (search_text.value == "") {
     // alert("搜索内容不能为空")
@@ -343,6 +363,9 @@ export default defineComponent({
       login,
       closebgimgset,
       resetBgimg,
+      startBgimg,
+      note,
+      savenote,
     };
   },
 });
@@ -378,6 +401,7 @@ export default defineComponent({
 .login {
   width: 30vw;
   min-width: 300px;
+  opacity: 0.9;
 }
 #home {
   width: 100%;
