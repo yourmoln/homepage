@@ -2,9 +2,10 @@
 
 项目基于 Vue 3 + TypeScript + Vite ， 使用Naive UI制作
 
-## 运行
+## 运行该项目
 
-      npm run dev
+      pnpm install
+      pnpm run dev
 
 还有许多功能未完善，只是一个随手写出来的模板，代码都在一个文件里还没拆出来
 

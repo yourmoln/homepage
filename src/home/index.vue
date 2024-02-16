@@ -90,7 +90,14 @@
             <n-time format="HH:mm:ss" time-zone="Asia/Shanghai" />
           </b>
         </n-gradient-text>
-        <n-avatar @click="login = true" lazy round :size="48" src="heita.svg" />
+        <n-icon
+          size="48"
+          @click="login = true"
+          color="#707070"
+          style="opacity: 0.9"
+        >
+          <PersonCircleSharp />
+        </n-icon>
       </n-flex>
       <div class="main">
         <div class="search">
@@ -109,11 +116,6 @@
           </n-input>
         </div>
 
-        <!-- <n-carousel autoplay>
-          <n-card class="autocard" title="卡片1"> 卡片内容1 </n-card>
-          <n-card class="autocard" title="卡片2"> 卡片内容2 </n-card>
-          <n-card class="autocard" title="卡片3"> 卡片内容3 </n-card>
-        </n-carousel> -->
         <n-card title="记录点什么吧">
           <n-input
             v-model:value="note"
@@ -123,8 +125,6 @@
             style="height: 40vh"
           />
         </n-card>
-        <!-- <n-card title="卡片"> 卡片内容 </n-card>
-        <n-card title="卡片"> 卡片内容 </n-card> -->
       </div>
     </n-space>
   </n-layout>
@@ -141,6 +141,7 @@ import {
   MusicalNotes as MusicIcon,
   ImageOutline as ImageIcon,
   CloudyOutline as CloudyIcon,
+  PersonCircleSharp,
 } from "@vicons/ionicons5";
 
 function renderIcon(icon: Component) {
@@ -350,6 +351,9 @@ const menuOptions: MenuOption[] = [
 ];
 
 export default defineComponent({
+  components: {
+    PersonCircleSharp,
+  },
   setup() {
     return {
       collapsed: ref(true),
@@ -366,6 +370,7 @@ export default defineComponent({
       startBgimg,
       note,
       savenote,
+      PersonCircleSharp,
     };
   },
 });
@@ -388,7 +393,7 @@ export default defineComponent({
   opacity: 0.7;
 
   margin: 3% auto;
-  width: 60vw;
+  width: 50vw;
 }
 .menu {
   opacity: 0.7;
